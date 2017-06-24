@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import Swiper from 'react-native-swiper';
 import HotelItem from '../components/HotelItem';
 import FilterModal from '../components/FilterModal';
 import Loading from '../components/Loading';
+import Relay from 'react-relay/classic';
 
 const styles = StyleSheet.create({
   container: {
@@ -100,6 +101,10 @@ class Restaurant extends React.Component {
   static navigationOptions = {
   };
 
+  static propTypes = {
+    viewer: PropTypes.object.isRequired,
+  }
+
   constructor() {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -179,7 +184,7 @@ class Restaurant extends React.Component {
           style={styles.hotelList}
           dataSource={this.state.hotels}
           renderSeparator={() => <View style={{height:5,backgroundColor:'#efefef'}} />}
-          renderRow={(rowData) => <HotelItem hotel={rowData} onPress={() => this.props.navigation.navigate('collections')} />}
+          renderRow={(rowData) => <HotelItem hotel={rowData} onPress={() => this.props.navigation.navigate('restaurantView')} />}
         />
         <View style={styles.loadingFooter}>
           <Text style={styles.loadingText}>Loading</Text>
@@ -194,7 +199,11 @@ class Restaurant extends React.Component {
           <View style={styles.header}>
             <View style={styles.searchContainer}>
               <Ionicons name="ios-search" size={16} style={styles.searchIcon} />
-              <TextInput style={styles.searchInput} placeholder="Search for restaurants, food" />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search for restaurants, food"
+                underlineColorAndroid="transparent"
+              />
             </View>
             <TouchableOpacity style={styles.searchBtn} onPress={() => this.setModalVisible(true)}>
               <Text style={styles.searchBtnTxt}>FILTER</Text>
@@ -207,4 +216,36 @@ class Restaurant extends React.Component {
   }
 }
 
-export default Restaurant;
+// export default Restaurant;
+const RestaurantContainer = Relay.createContainer(Restaurant, {
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        restaurants {
+          name
+        }
+      }
+    `
+  }
+});
+
+class RestaurantsRoute extends Relay.Route {
+  static queries = {
+    viewer: () => Relay.QL`
+      query {
+        viewer
+      }
+    `,
+  };
+  static routeName = 'RestaurantsRoute';
+}
+
+export default () => {
+  return (
+    <Relay.Renderer
+      Container={RestaurantContainer}
+      environment={Relay.Store}
+      queryConfig={new RestaurantsRoute()}
+    />
+  )
+}

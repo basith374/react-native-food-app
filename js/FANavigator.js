@@ -5,7 +5,7 @@ import {TabNavigator} from 'react-navigation';
 import RestaurantTab from './tabs/RestaurantTab';
 import Orders from './routes/Orders';
 import Cart from './routes/Cart';
-import Account from './routes/Account';
+import AccountTab from './tabs/AccountTab';
 
 class FANavigator extends React.Component {
 
@@ -21,34 +21,34 @@ class FANavigator extends React.Component {
         screen: Orders
       },
       account: {
-        screen: Account
+        screen: AccountTab
       },
     }, {
       tabBarOptions: {
         activeTintColor: '#f44336',
-        // inactiveTintColor: '#555',
-        // pressColor: '#f44336',
-        // indicatorStyle: {
-        //   display: 'none'
-        // },
-        // style: {
-        //   borderColor: '#ccc',
-        //   borderTopWidth: 1,
-        //   backgroundColor: '#fff',
-        //   height: 50,
-        // },
+        inactiveTintColor: '#555',
+        pressColor: '#f44336',
+        indicatorStyle: {
+          display: 'none'
+        },
+        style: {
+          borderColor: '#ccc',
+          borderTopWidth: 1,
+          backgroundColor: '#fff',
+          height: 50,
+        },
         labelStyle: {
           fontSize: 12,
-        //   marginTop: 0
+          marginTop: 0
         },
-        // iconStyle: {
-        // },
-        // showIcon: true,
-        // upperCaseLabel: false,
+        iconStyle: {
+        },
+        showIcon: true,
+        upperCaseLabel: false,
       },
-      // swipeEnabled: false,
-      // animationEnabled: false,
-      // tabBarPosition: 'bottom',
+      swipeEnabled: false,
+      animationEnabled: false,
+      tabBarPosition: 'bottom',
     });
     return <TabNav />;
   }

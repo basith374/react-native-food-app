@@ -2,6 +2,7 @@ import React from 'react';
 import {StackNavigator} from 'react-navigation';
 import Restaurants from '../routes/Restaurants';
 import Collections from '../routes/Collections';
+import RestaurantView from '../routes/RestaurantView';
 import {Ionicons} from '@expo/vector-icons';
 
 class RestaurantTab extends React.Component {
@@ -18,6 +19,9 @@ class RestaurantTab extends React.Component {
       },
       collections: {
         screen: Collections
+      },
+      restaurantView: {
+        screen: RestaurantView
       },
     }, {
       headerMode: 'none',

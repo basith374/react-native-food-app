@@ -20,6 +20,7 @@ import HotelItem from '../components/HotelItem';
 import FilterModal from '../components/FilterModal';
 import Loading from '../components/Loading';
 import Relay from 'react-relay/classic';
+import {connect} from 'react-redux';
 
 const styles = StyleSheet.create({
   container: {
@@ -105,9 +106,10 @@ class Restaurant extends React.Component {
     viewer: PropTypes.object.isRequired,
   }
 
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+  constructor(props) {
+    super(props);
     const img = require('../images/banner.png');
     const hotels = [
       {name:'Paris',desc:'Multi Cuisine'},
@@ -116,8 +118,7 @@ class Restaurant extends React.Component {
       {name:'Jubilee',desc:'Multi Cuisine'},
     ]
     this.state = {
-      slides: ds.cloneWithRows([img, img, img, img]),
-      hotels: ds.cloneWithRows(hotels),
+      slides: this.ds.cloneWithRows([img, img, img, img]),
       refreshing: false,
       modalVisible: false,
       // modalVisible: true,
@@ -125,8 +126,8 @@ class Restaurant extends React.Component {
   }
 
   _onRefresh() {
-    this.setState({refreshing:true});
-    setTimeout(() => this.setState({refreshing:false}), 1000);
+    // this.setState({refreshing:true});
+    // setTimeout(() => this.setState({refreshing:false}), 1000);
   }
 
   setModalVisible(visible) {
@@ -134,6 +135,10 @@ class Restaurant extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+    // console.log(this.props.viewer)
+    const restaurants = this.props.viewer.allRestaurants.edges;
+    // console.log(restaurants)
     const {refreshing} = this.state;
     let content;
     if(refreshing) {
@@ -182,7 +187,7 @@ class Restaurant extends React.Component {
         />
         <ListView
           style={styles.hotelList}
-          dataSource={this.state.hotels}
+          dataSource={this.ds.cloneWithRows(restaurants)}
           renderSeparator={() => <View style={{height:5,backgroundColor:'#efefef'}} />}
           renderRow={(rowData) => <HotelItem hotel={rowData} onPress={() => this.props.navigation.navigate('restaurantView')} />}
         />
@@ -216,13 +221,22 @@ class Restaurant extends React.Component {
   }
 }
 
-// export default Restaurant;
 const RestaurantContainer = Relay.createContainer(Restaurant, {
+  initialVariables: {
+    size: 10
+  },
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        restaurants {
-          name
+        allRestaurants(first: $size, orderBy: createdAt_DESC) {
+          edges {
+            node {
+              name
+              cuisine {
+                name
+              }
+            }
+          }
         }
       }
     `
@@ -240,12 +254,23 @@ class RestaurantsRoute extends Relay.Route {
   static routeName = 'RestaurantsRoute';
 }
 
-export default () => {
-  return (
-    <Relay.Renderer
-      Container={RestaurantContainer}
-      environment={Relay.Store}
-      queryConfig={new RestaurantsRoute()}
-    />
-  )
+class RestaurantsWrapper extends React.Component {
+  render() {
+    return (
+      <Relay.Renderer
+        Container={RestaurantContainer}
+        environment={Relay.Store}
+        queryConfig={new RestaurantsRoute()}
+        render={({props}) => {
+          // console.log(props);
+          if(props) {
+            return <RestaurantContainer {...this.props} {...props} />;
+          }
+          return <Loading />;
+        }}
+      />
+    )
+  }
 }
+
+export default RestaurantsWrapper;

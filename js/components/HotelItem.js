@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
 class HotelItem extends React.Component {
 
   render() {
-    const {hotel} = this.props;
+    const edge = this.props.hotel;
+    const hotel = edge.node;
     return (
       <TouchableWithoutFeedback onPress={this.props.onPress}>
         <View style={styles.container}>
@@ -63,7 +64,7 @@ class HotelItem extends React.Component {
           <View style={styles.content}>
             <View style={styles.textContainer}>
               <Text style={styles.title}>{hotel.name}</Text>
-              <Text style={styles.subTitle}>{hotel.desc}</Text>
+              <Text style={styles.subTitle}>{hotel.cuisine.name}</Text>
             </View>
             <View style={styles.footer}>
               <Text>30 mins.</Text>

@@ -1,0 +1,1743 @@
+type AddToRestaurantOnCuisinePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  restaurantsRestaurant: Restaurant
+  cuisineCuisine: Cuisine
+  restaurantsRestaurantEdge: RestaurantEdge
+  cuisineCuisineEdge: CuisineEdge
+}
+
+input AddToRestaurantOnCuisineRestaurantInput {
+  cuisineCuisineId: ID!
+  restaurantsRestaurantId: ID!
+  clientMutationId: String!
+}
+
+# The `BigDecimal` scalar type represents signed fractional values with arbitrary precision.
+scalar BigDecimal
+
+# The `BigInt` scalar type represents non-fractional signed whole numeric values. BigInt can represent arbitrary big values.
+scalar BigInt
+
+input CreateCuisine {
+  name: String!
+  restaurantsIds: [ID!]
+  restaurants: [CuisinerestaurantsRestaurant!]
+}
+
+input CreateCuisineInput {
+  name: String!
+  restaurantsIds: [ID!]
+  restaurants: [CuisinerestaurantsRestaurant!]
+  clientMutationId: String!
+}
+
+type CreateCuisinePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  cuisine: Cuisine
+  edge: CuisineEdge
+}
+
+input CreateFile {
+  name: String!
+}
+
+input CreateFileInput {
+  name: String!
+  clientMutationId: String!
+}
+
+type CreateFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+}
+
+input CreateMessage {
+  context: String!
+  message: String!
+}
+
+input CreateMessageInput {
+  context: String!
+  message: String!
+  clientMutationId: String!
+}
+
+type CreateMessagePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  message: Message
+  edge: MessageEdge
+}
+
+input CreatePost {
+  description: String!
+  imageUrl: String!
+}
+
+input CreatePostInput {
+  description: String!
+  imageUrl: String!
+  clientMutationId: String!
+}
+
+type CreatePostPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  post: Post
+  edge: PostEdge
+}
+
+input CreateRestaurant {
+  name: String!
+  cuisineId: ID
+  cuisine: RestaurantcuisineCuisine
+}
+
+input CreateRestaurantInput {
+  name: String!
+  cuisineId: ID
+  cuisine: RestaurantcuisineCuisine
+  clientMutationId: String!
+}
+
+type CreateRestaurantPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  restaurant: Restaurant
+  edge: RestaurantEdge
+  cuisine: Cuisine
+}
+
+# If authentication was successful the payload contains the user and a token. If unsuccessful this payload is null.
+type CreateUserPayload {
+  user: User
+  clientMutationId: String
+  viewer: Viewer!
+}
+
+type Cuisine implements Node {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  restaurants(filter: RestaurantFilter, orderBy: RestaurantOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): RestaurantConnection
+  updatedAt: DateTime!
+}
+
+# A connection to a list of items.
+type CuisineConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [CuisineEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type CuisineEdge {
+  # The item at the end of the edge.
+  node: Cuisine!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input CuisineFilter {
+  # Logical AND on all given filters.
+  AND: [CuisineFilter!]
+
+  # Logical OR on all given filters.
+  OR: [CuisineFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  name: String
+
+  # All values that are not equal to given value.
+  name_not: String
+
+  # All values that are contained in given list.
+  name_in: [String!]
+
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+
+  # All values less than the given value.
+  name_lt: String
+
+  # All values less than or equal the given value.
+  name_lte: String
+
+  # All values greater than the given value.
+  name_gt: String
+
+  # All values greater than or equal the given value.
+  name_gte: String
+
+  # All values containing the given string.
+  name_contains: String
+
+  # All values not containing the given string.
+  name_not_contains: String
+
+  # All values starting with the given string.
+  name_starts_with: String
+
+  # All values not starting with the given string.
+  name_not_starts_with: String
+
+  # All values ending with the given string.
+  name_ends_with: String
+
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  restaurants_every: RestaurantFilter
+  restaurants_some: RestaurantFilter
+  restaurants_none: RestaurantFilter
+}
+
+enum CuisineOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input CuisinerestaurantsRestaurant {
+  name: String!
+}
+
+scalar DateTime
+
+input DeleteCuisineInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteCuisinePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  cuisine: Cuisine
+  edge: CuisineEdge
+  deletedId: ID
+}
+
+input DeleteFileInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+  deletedId: ID
+}
+
+input DeleteMessageInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteMessagePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  message: Message
+  edge: MessageEdge
+  deletedId: ID
+}
+
+input DeletePostInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeletePostPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  post: Post
+  edge: PostEdge
+  deletedId: ID
+}
+
+input DeleteRestaurantInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteRestaurantPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  restaurant: Restaurant
+  edge: RestaurantEdge
+  cuisine: Cuisine
+  deletedId: ID
+}
+
+input DeleteUserInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteUserPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  user: User
+  edge: UserEdge
+  deletedId: ID
+}
+
+type File implements Node {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  secret: String!
+  size: Int!
+  updatedAt: DateTime!
+  url: String!
+}
+
+# A connection to a list of items.
+type FileConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [FileEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type FileEdge {
+  # The item at the end of the edge.
+  node: File!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input FileFilter {
+  # Logical AND on all given filters.
+  AND: [FileFilter!]
+
+  # Logical OR on all given filters.
+  OR: [FileFilter!]
+  contentType: String
+
+  # All values that are not equal to given value.
+  contentType_not: String
+
+  # All values that are contained in given list.
+  contentType_in: [String!]
+
+  # All values that are not contained in given list.
+  contentType_not_in: [String!]
+
+  # All values less than the given value.
+  contentType_lt: String
+
+  # All values less than or equal the given value.
+  contentType_lte: String
+
+  # All values greater than the given value.
+  contentType_gt: String
+
+  # All values greater than or equal the given value.
+  contentType_gte: String
+
+  # All values containing the given string.
+  contentType_contains: String
+
+  # All values not containing the given string.
+  contentType_not_contains: String
+
+  # All values starting with the given string.
+  contentType_starts_with: String
+
+  # All values not starting with the given string.
+  contentType_not_starts_with: String
+
+  # All values ending with the given string.
+  contentType_ends_with: String
+
+  # All values not ending with the given string.
+  contentType_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  name: String
+
+  # All values that are not equal to given value.
+  name_not: String
+
+  # All values that are contained in given list.
+  name_in: [String!]
+
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+
+  # All values less than the given value.
+  name_lt: String
+
+  # All values less than or equal the given value.
+  name_lte: String
+
+  # All values greater than the given value.
+  name_gt: String
+
+  # All values greater than or equal the given value.
+  name_gte: String
+
+  # All values containing the given string.
+  name_contains: String
+
+  # All values not containing the given string.
+  name_not_contains: String
+
+  # All values starting with the given string.
+  name_starts_with: String
+
+  # All values not starting with the given string.
+  name_not_starts_with: String
+
+  # All values ending with the given string.
+  name_ends_with: String
+
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  secret: String
+
+  # All values that are not equal to given value.
+  secret_not: String
+
+  # All values that are contained in given list.
+  secret_in: [String!]
+
+  # All values that are not contained in given list.
+  secret_not_in: [String!]
+
+  # All values less than the given value.
+  secret_lt: String
+
+  # All values less than or equal the given value.
+  secret_lte: String
+
+  # All values greater than the given value.
+  secret_gt: String
+
+  # All values greater than or equal the given value.
+  secret_gte: String
+
+  # All values containing the given string.
+  secret_contains: String
+
+  # All values not containing the given string.
+  secret_not_contains: String
+
+  # All values starting with the given string.
+  secret_starts_with: String
+
+  # All values not starting with the given string.
+  secret_not_starts_with: String
+
+  # All values ending with the given string.
+  secret_ends_with: String
+
+  # All values not ending with the given string.
+  secret_not_ends_with: String
+  size: Int
+
+  # All values that are not equal to given value.
+  size_not: Int
+
+  # All values that are contained in given list.
+  size_in: [Int!]
+
+  # All values that are not contained in given list.
+  size_not_in: [Int!]
+
+  # All values less than the given value.
+  size_lt: Int
+
+  # All values less than or equal the given value.
+  size_lte: Int
+
+  # All values greater than the given value.
+  size_gt: Int
+
+  # All values greater than or equal the given value.
+  size_gte: Int
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  url: String
+
+  # All values that are not equal to given value.
+  url_not: String
+
+  # All values that are contained in given list.
+  url_in: [String!]
+
+  # All values that are not contained in given list.
+  url_not_in: [String!]
+
+  # All values less than the given value.
+  url_lt: String
+
+  # All values less than or equal the given value.
+  url_lte: String
+
+  # All values greater than the given value.
+  url_gt: String
+
+  # All values greater than or equal the given value.
+  url_gte: String
+
+  # All values containing the given string.
+  url_contains: String
+
+  # All values not containing the given string.
+  url_not_contains: String
+
+  # All values starting with the given string.
+  url_starts_with: String
+
+  # All values not starting with the given string.
+  url_not_starts_with: String
+
+  # All values ending with the given string.
+  url_ends_with: String
+
+  # All values not ending with the given string.
+  url_not_ends_with: String
+}
+
+enum FileOrderBy {
+  contentType_ASC
+  contentType_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  secret_ASC
+  secret_DESC
+  size_ASC
+  size_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  url_ASC
+  url_DESC
+}
+
+# The `Long` scalar type represents non-fractional signed whole numeric values.
+# Long can represent values between -(2^63) and 2^63 - 1.
+scalar Long
+
+# messages to show on specific contexts
+type Message implements Node {
+  context: String!
+  createdAt: DateTime!
+  id: ID!
+  message: String!
+  updatedAt: DateTime!
+}
+
+# A connection to a list of items.
+type MessageConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MessageEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type MessageEdge {
+  # The item at the end of the edge.
+  node: Message!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input MessageFilter {
+  # Logical AND on all given filters.
+  AND: [MessageFilter!]
+
+  # Logical OR on all given filters.
+  OR: [MessageFilter!]
+  context: String
+
+  # All values that are not equal to given value.
+  context_not: String
+
+  # All values that are contained in given list.
+  context_in: [String!]
+
+  # All values that are not contained in given list.
+  context_not_in: [String!]
+
+  # All values less than the given value.
+  context_lt: String
+
+  # All values less than or equal the given value.
+  context_lte: String
+
+  # All values greater than the given value.
+  context_gt: String
+
+  # All values greater than or equal the given value.
+  context_gte: String
+
+  # All values containing the given string.
+  context_contains: String
+
+  # All values not containing the given string.
+  context_not_contains: String
+
+  # All values starting with the given string.
+  context_starts_with: String
+
+  # All values not starting with the given string.
+  context_not_starts_with: String
+
+  # All values ending with the given string.
+  context_ends_with: String
+
+  # All values not ending with the given string.
+  context_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  message: String
+
+  # All values that are not equal to given value.
+  message_not: String
+
+  # All values that are contained in given list.
+  message_in: [String!]
+
+  # All values that are not contained in given list.
+  message_not_in: [String!]
+
+  # All values less than the given value.
+  message_lt: String
+
+  # All values less than or equal the given value.
+  message_lte: String
+
+  # All values greater than the given value.
+  message_gt: String
+
+  # All values greater than or equal the given value.
+  message_gte: String
+
+  # All values containing the given string.
+  message_contains: String
+
+  # All values not containing the given string.
+  message_not_contains: String
+
+  # All values starting with the given string.
+  message_starts_with: String
+
+  # All values not starting with the given string.
+  message_not_starts_with: String
+
+  # All values ending with the given string.
+  message_ends_with: String
+
+  # All values not ending with the given string.
+  message_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+}
+
+enum MessageOrderBy {
+  context_ASC
+  context_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  message_ASC
+  message_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type Mutation {
+  createCuisine(input: CreateCuisineInput!): CreateCuisinePayload
+  createFile(input: CreateFileInput!): CreateFilePayload
+  createMessage(input: CreateMessageInput!): CreateMessagePayload
+  createPost(input: CreatePostInput!): CreatePostPayload
+  createRestaurant(input: CreateRestaurantInput!): CreateRestaurantPayload
+  updateCuisine(input: UpdateCuisineInput!): UpdateCuisinePayload
+  updateFile(input: UpdateFileInput!): UpdateFilePayload
+  updateMessage(input: UpdateMessageInput!): UpdateMessagePayload
+  updatePost(input: UpdatePostInput!): UpdatePostPayload
+  updateRestaurant(input: UpdateRestaurantInput!): UpdateRestaurantPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  updateOrCreateCuisine(input: UpdateOrCreateCuisineInput!): UpdateOrCreateCuisinePayload
+  updateOrCreateFile(input: UpdateOrCreateFileInput!): UpdateOrCreateFilePayload
+  updateOrCreateMessage(input: UpdateOrCreateMessageInput!): UpdateOrCreateMessagePayload
+  updateOrCreatePost(input: UpdateOrCreatePostInput!): UpdateOrCreatePostPayload
+  updateOrCreateRestaurant(input: UpdateOrCreateRestaurantInput!): UpdateOrCreateRestaurantPayload
+  updateOrCreateUser(input: UpdateOrCreateUserInput!): UpdateOrCreateUserPayload
+  deleteCuisine(input: DeleteCuisineInput!): DeleteCuisinePayload
+  deleteFile(input: DeleteFileInput!): DeleteFilePayload
+  deleteMessage(input: DeleteMessageInput!): DeleteMessagePayload
+  deletePost(input: DeletePostInput!): DeletePostPayload
+  deleteRestaurant(input: DeleteRestaurantInput!): DeleteRestaurantPayload
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+  addToRestaurantOnCuisine(input: AddToRestaurantOnCuisineRestaurantInput!): AddToRestaurantOnCuisinePayload
+  removeFromRestaurantOnCuisine(input: RemoveFromRestaurantOnCuisineRestaurantInput!): RemoveFromRestaurantOnCuisinePayload
+  createUser(input: SignupUserInput!): CreateUserPayload!
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Post implements Node {
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  imageUrl: String!
+  updatedAt: DateTime!
+}
+
+# A connection to a list of items.
+type PostConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [PostEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type PostEdge {
+  # The item at the end of the edge.
+  node: Post!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input PostFilter {
+  # Logical AND on all given filters.
+  AND: [PostFilter!]
+
+  # Logical OR on all given filters.
+  OR: [PostFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  description: String
+
+  # All values that are not equal to given value.
+  description_not: String
+
+  # All values that are contained in given list.
+  description_in: [String!]
+
+  # All values that are not contained in given list.
+  description_not_in: [String!]
+
+  # All values less than the given value.
+  description_lt: String
+
+  # All values less than or equal the given value.
+  description_lte: String
+
+  # All values greater than the given value.
+  description_gt: String
+
+  # All values greater than or equal the given value.
+  description_gte: String
+
+  # All values containing the given string.
+  description_contains: String
+
+  # All values not containing the given string.
+  description_not_contains: String
+
+  # All values starting with the given string.
+  description_starts_with: String
+
+  # All values not starting with the given string.
+  description_not_starts_with: String
+
+  # All values ending with the given string.
+  description_ends_with: String
+
+  # All values not ending with the given string.
+  description_not_ends_with: String
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  imageUrl: String
+
+  # All values that are not equal to given value.
+  imageUrl_not: String
+
+  # All values that are contained in given list.
+  imageUrl_in: [String!]
+
+  # All values that are not contained in given list.
+  imageUrl_not_in: [String!]
+
+  # All values less than the given value.
+  imageUrl_lt: String
+
+  # All values less than or equal the given value.
+  imageUrl_lte: String
+
+  # All values greater than the given value.
+  imageUrl_gt: String
+
+  # All values greater than or equal the given value.
+  imageUrl_gte: String
+
+  # All values containing the given string.
+  imageUrl_contains: String
+
+  # All values not containing the given string.
+  imageUrl_not_contains: String
+
+  # All values starting with the given string.
+  imageUrl_starts_with: String
+
+  # All values not starting with the given string.
+  imageUrl_not_starts_with: String
+
+  # All values ending with the given string.
+  imageUrl_ends_with: String
+
+  # All values not ending with the given string.
+  imageUrl_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+}
+
+enum PostOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  description_ASC
+  description_DESC
+  id_ASC
+  id_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type Query {
+  viewer: Viewer!
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+}
+
+type RemoveFromRestaurantOnCuisinePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  restaurantsRestaurant: Restaurant
+  cuisineCuisine: Cuisine
+  restaurantsRestaurantEdge: RestaurantEdge
+  cuisineCuisineEdge: CuisineEdge
+}
+
+input RemoveFromRestaurantOnCuisineRestaurantInput {
+  cuisineCuisineId: ID!
+  restaurantsRestaurantId: ID!
+  clientMutationId: String!
+}
+
+type Restaurant implements Node {
+  createdAt: DateTime!
+  cuisine(filter: CuisineFilter): Cuisine
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+# A connection to a list of items.
+type RestaurantConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [RestaurantEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+input RestaurantcuisineCuisine {
+  name: String!
+  restaurantsIds: [ID!]
+  restaurants: [RestaurantcuisineCuisinerestaurantsRestaurant!]
+}
+
+input RestaurantcuisineCuisinerestaurantsRestaurant {
+  name: String!
+}
+
+# An edge in a connection.
+type RestaurantEdge {
+  # The item at the end of the edge.
+  node: Restaurant!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input RestaurantFilter {
+  # Logical AND on all given filters.
+  AND: [RestaurantFilter!]
+
+  # Logical OR on all given filters.
+  OR: [RestaurantFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  name: String
+
+  # All values that are not equal to given value.
+  name_not: String
+
+  # All values that are contained in given list.
+  name_in: [String!]
+
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+
+  # All values less than the given value.
+  name_lt: String
+
+  # All values less than or equal the given value.
+  name_lte: String
+
+  # All values greater than the given value.
+  name_gt: String
+
+  # All values greater than or equal the given value.
+  name_gte: String
+
+  # All values containing the given string.
+  name_contains: String
+
+  # All values not containing the given string.
+  name_not_contains: String
+
+  # All values starting with the given string.
+  name_starts_with: String
+
+  # All values not starting with the given string.
+  name_not_starts_with: String
+
+  # All values ending with the given string.
+  name_ends_with: String
+
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  cuisine: CuisineFilter
+}
+
+enum RestaurantOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input SignupUserInput {
+  clientMutationId: String!
+}
+
+input UpdateCuisine {
+  id: ID!
+  name: String
+  restaurantsIds: [ID!]
+  restaurants: [CuisinerestaurantsRestaurant!]
+}
+
+input UpdateCuisineInput {
+  id: ID!
+  name: String
+  restaurantsIds: [ID!]
+  restaurants: [CuisinerestaurantsRestaurant!]
+  clientMutationId: String!
+}
+
+type UpdateCuisinePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  cuisine: Cuisine
+  edge: CuisineEdge
+}
+
+input UpdateFile {
+  id: ID!
+  name: String
+}
+
+input UpdateFileInput {
+  id: ID!
+  name: String
+  clientMutationId: String!
+}
+
+type UpdateFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+}
+
+input UpdateMessage {
+  context: String
+  id: ID!
+  message: String
+}
+
+input UpdateMessageInput {
+  context: String
+  id: ID!
+  message: String
+  clientMutationId: String!
+}
+
+type UpdateMessagePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  message: Message
+  edge: MessageEdge
+}
+
+input UpdateOrCreateCuisineInput {
+  update: UpdateCuisine!
+  create: CreateCuisine!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateCuisinePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  cuisine: Cuisine
+  edge: CuisineEdge
+}
+
+input UpdateOrCreateFileInput {
+  update: UpdateFile!
+  create: CreateFile!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+}
+
+input UpdateOrCreateMessageInput {
+  update: UpdateMessage!
+  create: CreateMessage!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateMessagePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  message: Message
+  edge: MessageEdge
+}
+
+input UpdateOrCreatePostInput {
+  update: UpdatePost!
+  create: CreatePost!
+  clientMutationId: String!
+}
+
+type UpdateOrCreatePostPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  post: Post
+  edge: PostEdge
+}
+
+input UpdateOrCreateRestaurantInput {
+  update: UpdateRestaurant!
+  create: CreateRestaurant!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateRestaurantPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  restaurant: Restaurant
+  edge: RestaurantEdge
+  cuisine: Cuisine
+}
+
+input UpdateOrCreateUserInput {
+  update: UpdateUser!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateUserPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  user: User
+  edge: UserEdge
+}
+
+input UpdatePost {
+  description: String
+  id: ID!
+  imageUrl: String
+}
+
+input UpdatePostInput {
+  description: String
+  id: ID!
+  imageUrl: String
+  clientMutationId: String!
+}
+
+type UpdatePostPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  post: Post
+  edge: PostEdge
+}
+
+input UpdateRestaurant {
+  id: ID!
+  name: String
+  cuisineId: ID
+  cuisine: RestaurantcuisineCuisine
+}
+
+input UpdateRestaurantInput {
+  id: ID!
+  name: String
+  cuisineId: ID
+  cuisine: RestaurantcuisineCuisine
+  clientMutationId: String!
+}
+
+type UpdateRestaurantPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  restaurant: Restaurant
+  edge: RestaurantEdge
+  cuisine: Cuisine
+}
+
+input UpdateUser {
+  id: ID!
+}
+
+input UpdateUserInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type UpdateUserPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  user: User
+  edge: UserEdge
+}
+
+type User implements Node {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge.
+  node: User!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input UserFilter {
+  # Logical AND on all given filters.
+  AND: [UserFilter!]
+
+  # Logical OR on all given filters.
+  OR: [UserFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+}
+
+enum UserOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+# This is the famous Relay viewer object
+type Viewer {
+  allCuisines(filter: CuisineFilter, orderBy: CuisineOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): CuisineConnection!
+  allFiles(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  allMessages(filter: MessageFilter, orderBy: MessageOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
+  allPosts(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  allRestaurants(filter: RestaurantFilter, orderBy: RestaurantOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): RestaurantConnection!
+  allUsers(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  user: User
+  Cuisine(id: ID): Cuisine
+  File(id: ID, secret: String, url: String): File
+  Message(id: ID): Message
+  Post(id: ID): Post
+  Restaurant(id: ID): Restaurant
+  User(id: ID): User
+  id: ID!
+}

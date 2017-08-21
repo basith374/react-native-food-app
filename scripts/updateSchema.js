@@ -6,7 +6,7 @@ const {
   printSchema,
 } = require('graphql/utilities');
 const path = require('path');
-const schemaPath = path.join(__dirname, 'schema');
+const schemaPath = path.join(__dirname + '/../data/', 'schema');
 
 const SERVER = 'https://api.graph.cool/relay/v1/cj2x36tmkdnqa01948n11a3cb';
 
